@@ -34,19 +34,14 @@ function App() {
   // Seteo de listado de perros que no le gustaron
   const [notLiked, setNotLiked] = useState([]);
 
-  // 
-  const [loading, setLoading] = useState(true);
-
   // Funcion para obtener perro y setear perro (Nombre y foto aleatoria)
   const getPerro = () => {
-    setLoading(true);
     axios.get("https://dog.ceo/api/breeds/image/random").then((response) => {
       setPerro({
         nombre: dogNames.allRandom(),
         imagen: response.data.message,
         edad : Math.round(Math.random() * 4) + 1,
       });
-      setLoading(false);
     });
   };
 
@@ -82,7 +77,7 @@ function App() {
     setNotLiked(notLiked.filter((p) => p !== perro));
     setLiked([...liked, perro]);
   };
-  
+
   return (
     <>
       <Container
