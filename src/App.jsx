@@ -28,19 +28,25 @@ import iconChat from "../src/img/icon-chat.png";
 
 function App() {
   // Seteo de perro con propiedades de nombre e imagen.
-  const [perro, setPerro] = useState({ nombre: "", imagen: "" });
+  const [perro, setPerro] = useState({ nombre: "", imagen: "", edad: "" });
   // Seteo de listado de perros que le gustaron
   const [liked, setLiked] = useState([]);
   // Seteo de listado de perros que no le gustaron
   const [notLiked, setNotLiked] = useState([]);
 
+  // 
+  const [loading, setLoading] = useState(true);
+
   // Funcion para obtener perro y setear perro (Nombre y foto aleatoria)
   const getPerro = () => {
+    setLoading(true);
     axios.get("https://dog.ceo/api/breeds/image/random").then((response) => {
       setPerro({
         nombre: dogNames.allRandom(),
         imagen: response.data.message,
+        edad : Math.round(Math.random() * 4) + 1,
       });
+      setLoading(false);
     });
   };
 
@@ -65,6 +71,18 @@ function App() {
     getPerro();
   };
 
+  // Funcion para cambiar de lista (liked a notLiked)
+  const moveToNotLiked = (perro) => {
+    setLiked(liked.filter((p) => p !== perro));
+    setNotLiked([...notLiked, perro]);
+  };
+
+  // Funcion para cambiar de lista (notLiked a liked)
+  const moveToLiked = (perro) => {
+    setNotLiked(notLiked.filter((p) => p !== perro));
+    setLiked([...liked, perro]);
+  };
+  
   return (
     <>
       <Container
@@ -92,7 +110,7 @@ function App() {
                     style={{ marginRight: "10px" }}
                   />
                   {perro.nombre}
-                  <Button>Cambiar</Button>
+                  <Button onClick={() => moveToLiked(perro)}>Cambiar</Button>
                 </ListItem>
               ))}
             </List>
@@ -118,7 +136,7 @@ function App() {
                 alt="Imagen de perfil"
               />
               <h1 className="name-age">
-                {perro.nombre}, {Math.round(Math.random() * 4) + 1}
+                {perro.nombre}, {perro.edad}
               </h1>
               <Divider />
               <div className="lorem">
@@ -134,7 +152,10 @@ function App() {
                   className="btn not-like"
                   onClick={() => giveNotLike(perro)}
                 ></div>
-                <div className="btn like" onClick={() => giveLike(perro)}></div>
+                <div
+                  className="btn like"
+                  onClick={() => giveLike(perro)}
+                  ></div>
               </Box>
             </Box>
           </Grid>
@@ -155,12 +176,11 @@ function App() {
                     style={{ marginRight: "10px" }}
                   />
                   {perro.nombre}
-                  <Button>Cambiar</Button>
+                  <Button onClick={() => moveToNotLiked(perro)}>Cambiar</Button>
                 </ListItem>
               ))}
             </List>
           </Grid>
-          
         </Grid>
       </Container>
     </>
