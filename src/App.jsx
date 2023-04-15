@@ -156,7 +156,10 @@ function App() {
         {/* Contenedor grid */}
         <Grid container justifyContent="space-evenly">
           {/* Lista de notLiked*/}
-          <Grid xs={3} className="shadow-border gridBox"
+          <Grid
+            xs={3}
+            className="shadow-border gridBox"
+            style={{overflowY: "auto"}}
           >
             <List>
               {notLiked.map((perro) => (
@@ -215,7 +218,11 @@ function App() {
           </Grid>
 
           {/* Lista de liked */}
-          <Grid xs={3} className="gridBox shadow-border">
+          <Grid
+            xs={3}
+            className="gridBox shadow-border"
+            style={{overflowY: "auto"}}
+            >
             <List>
               {liked.map((perro) => (
                 <ListItem className="list-item">
