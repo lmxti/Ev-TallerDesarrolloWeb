@@ -41,6 +41,8 @@ function App() {
   const [liked, setLiked] = useState([]);
   // Seteo de listado de perros que no le gustaron
   const [notLiked, setNotLiked] = useState([]);
+  // Seteo de variables para no spam de botones
+  const [buttonDeactivated, setButtonDeactivated] = useState(false);
 
   const ubicaciones = [
     "Concepción",
@@ -83,6 +85,13 @@ function App() {
 
   // Funcion para agregar a listado de liked (perros que le gustaron)
   const giveLike = (perro) => {
+    // Comprobacion de spam de botones
+    if (!buttonDeactivated) {
+      setButtonDeactivated(true);
+      setTimeout(() => {
+        setButtonDeactivated(false);
+      }, 1000);
+    } else { return }
     //  Push de perro a lista de gustados
     setLiked([...liked, perro]);
     // Obtencion de nuevo perro
@@ -91,6 +100,13 @@ function App() {
 
   // Funcion para agregar a listado de notLiked (perros que no le gustaron)
   const giveNotLike = (perro) => {
+    // Comprobacion de spam de botones
+    if (!buttonDeactivated) {
+      setButtonDeactivated(true);
+      setTimeout(() => {
+        setButtonDeactivated(false);
+      }, 1000);
+    } else { return }
     // Push de perro a lista de no gustados
     setNotLiked([...notLiked, perro]);
     // Obtencion de nuevo perro
@@ -141,7 +157,6 @@ function App() {
         <Grid container justifyContent="space-evenly">
           {/* Lista de notLiked*/}
           <Grid xs={3} className="shadow-border gridBox"
-           style={{overflow: "auto", scrollbarColor: "#ccc #f5f5f5"}}
           >
             <List>
               {notLiked.map((perro) => (
@@ -189,10 +204,12 @@ function App() {
               <div className="lorem">{perro.descripcion}</div>
               <Box className="btns">
                 <div
-                  className="btn not-like"
+                  className={`btn not-like ${buttonDeactivated ? "disabled" : ""}`}
                   onClick={() => giveNotLike(perro)}
                 ></div>
-                <div className="btn like" onClick={() => giveLike(perro)}></div>
+                <div
+                  className={`btn like ${buttonDeactivated ? "disabled" : ""}`}
+                  onClick={() => giveLike(perro)}></div>
               </Box>
             </Box>
           </Grid>

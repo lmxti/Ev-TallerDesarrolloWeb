@@ -171,9 +171,15 @@ body.dark-mode {
     background-color: #000000;
 }
 
+
 .btn:hover {
     cursor: pointer;
     background-color: rgb(186, 184, 184);
+}
+
+.btn.disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .not-like {
