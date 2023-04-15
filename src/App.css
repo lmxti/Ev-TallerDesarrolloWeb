@@ -12,11 +12,35 @@ html {
     padding: 0;
 }
 
+body {
+    background-color: whitesmoke;
+}
+
+body.dark-mode {
+    background-color: #16181c;
+}
+
+
 /*------- Utilidades ---*/
+.gridBox {
+    background-color: #fff;
+    color: black;
+    height: 70vh;
+}
+
+.gridBox.dark-mode {
+    background-color: #36373b;
+    color: white;
+}
 
 .shadow-border {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
     border-radius: 10px;
+}
+
+/* Contenedor principal */
+.principal-container {
+    margin-top: 100px;
 }
 
 
@@ -31,6 +55,7 @@ html {
     width: 40px;
     height: 40px;
     filter: invert(0.5) brightness(1.5);
+    transition: 0.4s ease-in-out;
 }
 
 .side-icon:hover {
@@ -67,22 +92,58 @@ html {
     margin-bottom: 10px;
     background-color: whitesmoke;
     border-radius: 10px;
-    box-shadow:   4px 8px 1px 1px rgba(0, 0, 0, 0.264),
-                  7px 15px 2px 1px rgba(0, 0, 0, 0.264);
+    box-shadow: 4px 8px 1px 1px rgba(0, 0, 0, 0.264),
+        7px 15px 2px 1px rgba(0, 0, 0, 0.264);
 
 }
 
 /* Detalles perfil */
-.name-age {
+
+.name-age,
+.ubication,
+.distance {
     font-family: 'Milliard Book', sans-serif;
-    margin-top: 10px;
-    font-size: 20px;
     text-align: left;
-    margin-bottom: 10px;
+}
+
+.name-age {
+    margin-top: 10px;
     font-size: 32px;
-    font-weight: 700;
+    font-weight: 800;
     color: #000000;
-    margin-bottom: 12px;
+}
+
+.name-age.dark-mode {
+    color: #fff;
+}
+
+.ubication, .distance {
+    display: flex;
+    align-items: center; /* alinea verticalmente */
+    font-size: 15px;
+    font-weight: 600;
+    color: #797979;
+}
+
+.ubication.dark-mode, .distance.dark-mode {
+    color: #b0aeae;
+}
+
+.icon-ubication, .icon-distance{
+    display: flex;
+    align-items: center;
+}
+
+.icon-ubication img,
+.icon-distance img{
+    height: 15px;
+    width: 15px;
+    margin-right: 5px;
+}
+
+.icon-ubication.dark-mode img,
+.icon-distance.dark-mode img{
+    filter: invert(100%)
 }
 
 .lorem {
@@ -104,6 +165,10 @@ html {
     border-radius: 50%;
     background-color: whitesmoke;
     transition: 0.4s ease-in-out;
+}
+
+.btn.dark-mode {
+    background-color: #000000;
 }
 
 .btn:hover {

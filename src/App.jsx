@@ -14,6 +14,8 @@ import {
   Button,
   Avatar,
   Divider,
+  Chip,
+  Stack,
 } from "@mui/material";
 
 // Librerias importadas
@@ -28,11 +30,31 @@ import iconChat from "../src/img/icon-chat.png";
 
 function App() {
   // Seteo de perro con propiedades de nombre e imagen.
-  const [perro, setPerro] = useState({ nombre: "", imagen: "", edad: "" });
+  const [perro, setPerro] = useState({
+    nombre: "",
+    imagen: "",
+    edad: "",
+    ubicacion: "",
+    descripcion: "",
+  });
   // Seteo de listado de perros que le gustaron
   const [liked, setLiked] = useState([]);
   // Seteo de listado de perros que no le gustaron
   const [notLiked, setNotLiked] = useState([]);
+
+  const ubicaciones = [
+    "Concepción",
+    "Coronel",
+    "Chiguayante",
+    "Lota",
+    "Penco",
+    "San Pedro de la paz",
+    "Talcahuano",
+    "Tomé",
+    "Hualpen",
+  ];
+
+  const distancias = ["1km", "2km", "3km", "4km", "5km", "6km", "7km", "8km"];
 
   // Funcion para obtener perro y setear perro (Nombre y foto aleatoria)
   const getPerro = () => {
@@ -40,7 +62,16 @@ function App() {
       setPerro({
         nombre: dogNames.allRandom(),
         imagen: response.data.message,
-        edad : Math.round(Math.random() * 4) + 1,
+        edad: Math.round(Math.random() * 4) + 1,
+        ubicacion: ubicaciones[Math.floor(Math.random() * ubicaciones.length)],
+        distancia: distancias[Math.floor(Math.random() * distancias.length)],
+        descripcion: (
+          <LoremIpsum
+            startWithLoremIpsum={false}
+            avgWordsPerSentence={2}
+            avgSentencesPerParagraph={1}
+          />
+        ),
       });
     });
   };
@@ -78,23 +109,39 @@ function App() {
     setLiked([...liked, perro]);
   };
 
+  // Seleccion de elementos del DOM
+  const body = document.body; // Elemento body
+  const gridBox = document.querySelectorAll(".gridBox"); // Elementos gridBox (columnas)
+  const btn = document.querySelectorAll(".btn"); // Elementos btn (botones de like y dislike)
+  const nameAge = document.querySelector(".name-age"); // Elemento nameAge (nombre y edad del perro)
+  const ubication = document.querySelector(".ubication"); // Elemento ubication (ubicacion del perro)
+  const distance = document.querySelector(".distance"); // Elemento distance (distancia del perro)
+  const iconUbication = document.querySelector(".icon-ubication"); // Elemento iconUbication (icono de ubicacion)
+  const iconDistance = document.querySelector(".icon-distance"); // Elemento iconDistance (icono de distancia)
+
+  const setDarkMode = () => {
+    body.classList.toggle("dark-mode");
+    gridBox.forEach((box) => {
+      box.classList.toggle("dark-mode");
+    });
+    btn.forEach((botones) => {
+      botones.classList.toggle("dark-mode");
+    });
+    nameAge.classList.toggle("dark-mode");
+    ubication.classList.toggle("dark-mode");
+    distance.classList.toggle("dark-mode");
+    iconUbication.classList.toggle("dark-mode");
+    iconDistance.classList.toggle("dark-mode");
+  };
+
   return (
     <>
-      <Container
-        style={{
-          backgroundColor: "whitesmoke",
-          marginTop: "100px",
-          padding: "50px",
-        }}
-      >
+      <Container className="principal-container">
         {/* Contenedor grid */}
         <Grid container justifyContent="space-evenly">
           {/* Lista de notLiked*/}
-          <Grid
-            bgcolor={"#fff"}
-            color={"black"}
-            xs={3}
-            className="shadow-border"
+          <Grid xs={3} className="shadow-border gridBox"
+           style={{overflow: "auto", scrollbarColor: "#ccc #f5f5f5"}}
           >
             <List>
               {notLiked.map((perro) => (
@@ -112,14 +159,13 @@ function App() {
           </Grid>
 
           {/* Perfil de perro */}
-          <Grid
-            bgcolor={"#fff"}
-            item
-            xs={4}
-            className=" box-perfil shadow-border "
-          >
+          <Grid xs={4} className=" grid-Box gridBox shadow-border">
             <Box className="div-header">
-              <img className="side-icon" src={iconSetting}></img>
+              <img
+                className="side-icon"
+                src={iconSetting}
+                onClick={() => setDarkMode()}
+              />
               <img className="logo" src={logo} alt="xd" />
               <img className="side-icon" src={iconChat} alt="" />
             </Box>
@@ -133,35 +179,26 @@ function App() {
               <h1 className="name-age">
                 {perro.nombre}, {perro.edad}
               </h1>
+              <h3 className="ubication">{" "}<span className="icon-ubication">{" "}<img src="./src/img/icon-ubication.png" alt="Ubication" /></span>{" "}
+                De {perro.ubicacion}
+              </h3>
+              <h3 className="distance">{" "}<span className="icon-distance">{" "}<img src="./src/img/icon-gps.png" alt="Distance" /></span>
+                A {perro.distancia} de distancia
+              </h3>
               <Divider />
-              <div className="lorem">
-                <LoremIpsum
-                  random
-                  startWithLoremIpsum={false}
-                  avgWordsPerSentence={2}
-                  avgSentencesPerParagraph={1}
-                />
-              </div>
+              <div className="lorem">{perro.descripcion}</div>
               <Box className="btns">
                 <div
                   className="btn not-like"
                   onClick={() => giveNotLike(perro)}
                 ></div>
-                <div
-                  className="btn like"
-                  onClick={() => giveLike(perro)}
-                  ></div>
+                <div className="btn like" onClick={() => giveLike(perro)}></div>
               </Box>
             </Box>
           </Grid>
 
           {/* Lista de liked */}
-          <Grid
-            bgcolor={"#fff"}
-            color={"black"}
-            xs={3}
-            className="shadow-border"
-          >
+          <Grid xs={3} className="gridBox shadow-border">
             <List>
               {liked.map((perro) => (
                 <ListItem className="list-item">
