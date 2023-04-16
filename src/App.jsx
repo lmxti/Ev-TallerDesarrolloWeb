@@ -16,6 +16,7 @@ import {
   Divider,
   Chip,
   Stack,
+  IconButton,
 } from "@mui/material";
 
 // Librerias importadas
@@ -25,7 +26,7 @@ import axios from "axios";
 
 // Iconos importados
 import logo from "./img/logo.png";
-import iconSetting from "../src/img/icon-settings.svg";
+import iconSun from "../src/img/icon-sun.png";
 import iconChat from "../src/img/icon-chat.png";
 
 function App() {
@@ -70,8 +71,8 @@ function App() {
         descripcion: (
           <LoremIpsum
             startWithLoremIpsum={false}
-            avgWordsPerSentence={2}
-            avgSentencesPerParagraph={1}
+            avgWordsPerSentence={3}
+            avgSentencesPerParagraph={2}
           />
         ),
       });
@@ -91,7 +92,9 @@ function App() {
       setTimeout(() => {
         setButtonDeactivated(false);
       }, 1000);
-    } else { return }
+    } else {
+      return;
+    }
     //  Push de perro a lista de gustados
     setLiked([...liked, perro]);
     // Obtencion de nuevo perro
@@ -106,7 +109,9 @@ function App() {
       setTimeout(() => {
         setButtonDeactivated(false);
       }, 1000);
-    } else { return }
+    } else {
+      return;
+    }
     // Push de perro a lista de no gustados
     setNotLiked([...notLiked, perro]);
     // Obtencion de nuevo perro
@@ -127,25 +132,23 @@ function App() {
 
   // Seleccion de elementos del DOM
   const body = document.body; // Elemento body
-  const gridBox = document.querySelectorAll(".gridBox"); // Elementos gridBox (columnas)
-  const btn = document.querySelectorAll(".btn"); // Elementos btn (botones de like y dislike)
-  const nameAge = document.querySelector(".name-age"); // Elemento nameAge (nombre y edad del perro)
-  const ubication = document.querySelector(".ubication"); // Elemento ubication (ubicacion del perro)
-  const distance = document.querySelector(".distance"); // Elemento distance (distancia del perro)
-  const iconUbication = document.querySelector(".icon-ubication"); // Elemento iconUbication (icono de ubicacion)
-  const iconDistance = document.querySelector(".icon-distance"); // Elemento iconDistance (icono de distancia)
+  const sideBoxLetf = document.querySelector(".side-box--left"); // Elemento sideBoxLeft
+  const sideBoxCenter = document.querySelector(".side-box--center"); // Elemento sideBoxCenter
+  const sideBoxRight = document.querySelector(".side-box--right"); // Elemento sideBoxRight
+  const nameAge = document.querySelector(".name-age"); // Elemento nameAge
+  const textUbication = document.querySelector(".ubication"); // Elemento textUbication
+  const textDistance = document.querySelector(".distance");
+  const iconUbication = document.querySelector(".icon-ubication");
+  const iconDistance = document.querySelector(".icon-distance");
 
   const setDarkMode = () => {
     body.classList.toggle("dark-mode");
-    gridBox.forEach((box) => {
-      box.classList.toggle("dark-mode");
-    });
-    btn.forEach((botones) => {
-      botones.classList.toggle("dark-mode");
-    });
+    sideBoxLetf.classList.toggle("dark-mode");
+    sideBoxCenter.classList.toggle("dark-mode");
+    sideBoxRight.classList.toggle("dark-mode");
     nameAge.classList.toggle("dark-mode");
-    ubication.classList.toggle("dark-mode");
-    distance.classList.toggle("dark-mode");
+    textUbication.classList.toggle("dark-mode");
+    textDistance.classList.toggle("dark-mode");
     iconUbication.classList.toggle("dark-mode");
     iconDistance.classList.toggle("dark-mode");
   };
@@ -156,32 +159,32 @@ function App() {
         {/* Contenedor grid */}
         <Grid container justifyContent="space-evenly">
           {/* Lista de notLiked*/}
-          <Grid
-            xs={3}
-            className="shadow-border gridBox"
-            style={{overflowY: "auto"}}
-          >
-            <List>
-              {notLiked.map((perro) => (
-                <ListItem className="list-item">
-                  <Avatar
-                    src={perro.imagen}
-                    alt="Imagen Avatar"
-                    style={{ marginRight: "10px" }}
-                  />
-                  {perro.nombre}
-                  <Button onClick={() => moveToLiked(perro)}>Cambiar</Button>
-                </ListItem>
-              ))}
-            </List>
+          <Grid xs={3} className="side-box--left">
+              <List>
+                {notLiked.map((perro) => (
+                  <ListItem className="list-item">
+                    <Avatar
+                      src={perro.imagen}
+                      alt="Imagen Avatar"
+                      style={{ marginRight: "10px" }}
+                    />
+                    {perro.nombre}
+                    <button
+                      title="Cambiar a lista contraria"
+                      className="btn-change left"
+                      onClick={() => moveToLiked(perro)}
+                    ></button>
+                  </ListItem>
+                ))}
+              </List>
           </Grid>
 
           {/* Perfil de perro */}
-          <Grid xs={4} className=" grid-Box gridBox shadow-border">
+          <Grid xs={4} className="side-box--center">
             <Box className="div-header">
               <img
-                className="side-icon"
-                src={iconSetting}
+                className="side-icon sun"
+                src={iconSun}
                 onClick={() => setDarkMode()}
               />
               <img className="logo" src={logo} alt="xd" />
@@ -197,22 +200,35 @@ function App() {
               <h1 className="name-age">
                 {perro.nombre}, {perro.edad}
               </h1>
-              <h3 className="ubication">{" "}<span className="icon-ubication">{" "}<img src="./src/img/icon-ubication.png" alt="Ubication" /></span>{" "}
+              <h3 className="ubication">
+                {" "}
+                <span className="icon-ubication">
+                  {" "}
+                  <img src="./src/img/icon-ubication.png" alt="Ubication" />
+                </span>{" "}
                 De {perro.ubicacion}
               </h3>
-              <h3 className="distance">{" "}<span className="icon-distance">{" "}<img src="./src/img/icon-gps.png" alt="Distance" /></span>
+              <h3 className="distance">
+                {" "}
+                <span className="icon-distance">
+                  {" "}
+                  <img src="./src/img/icon-gps.png" alt="Distance" />
+                </span>
                 A {perro.distancia} de distancia
               </h3>
               <Divider />
               <div className="lorem">{perro.descripcion}</div>
               <Box className="btns">
                 <div
-                  className={`btn not-like ${buttonDeactivated ? "disabled" : ""}`}
+                  className={`btn not-like ${
+                    buttonDeactivated ? "disabled" : ""
+                  }`}
                   onClick={() => giveNotLike(perro)}
                 ></div>
                 <div
                   className={`btn like ${buttonDeactivated ? "disabled" : ""}`}
-                  onClick={() => giveLike(perro)}></div>
+                  onClick={() => giveLike(perro)}
+                ></div>
               </Box>
             </Box>
           </Grid>
@@ -220,9 +236,9 @@ function App() {
           {/* Lista de liked */}
           <Grid
             xs={3}
-            className="gridBox shadow-border"
-            style={{overflowY: "auto"}}
-            >
+            className="side-box--right"
+            style={{ overflowY: "auto" }}
+          >
             <List>
               {liked.map((perro) => (
                 <ListItem className="list-item">
@@ -232,7 +248,11 @@ function App() {
                     style={{ marginRight: "10px" }}
                   />
                   {perro.nombre}
-                  <Button onClick={() => moveToNotLiked(perro)}>Cambiar</Button>
+                  <button
+                    title="Cambiar a lista contraria"
+                    className="btn-change right"
+                    onClick={() => moveToNotLiked(perro)}
+                  ></button>
                 </ListItem>
               ))}
             </List>

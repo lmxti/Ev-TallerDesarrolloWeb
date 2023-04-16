@@ -1,5 +1,15 @@
 @import url('/fonts/milliard-cufonfonts-webfont/style.css');
 
+:root {
+    --fuente: 'Milliard Book', sans-serif;
+    --verde: #4bcd91;
+    --rojo: #fb6e6e;
+    --blanco: #fff;
+    --negro: #000;
+    --gris: #444654;
+}
+
+
 html {
     box-sizing: border-box;
 }
@@ -21,56 +31,132 @@ body.dark-mode {
 }
 
 
-/*------- Utilidades ---*/
-.gridBox {
-    background-color: #fff;
-    color: black;
-    height: 70vh;
-}
 
-.gridBox.dark-mode {
-    background-color: #36373b;
-    color: white;
-}
-
-.gridBox::-webkit-scrollbar {
-    width: 0.6em;
-    border-radius: 4px;
-}
-
-.gridBox::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-}
-
-.gridBox::-webkit-scrollbar-thumb {
-    background-color: #50C878;
-    outline: 1px solid rgb(255, 255, 255);
-    border-radius: 4px;
-}
-
-.gridBox::-webkit-scrollbar-thumb:hover {
-    background-color: #00f7ff;
-}
-
-.shadow-border {
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-}
-
-/* Contenedor principal */
+/*-------- Contenedor de las columnas --------*/
 .principal-container {
     margin-top: 100px;
 }
 
+/* Propiedad en comun de cada columna */
+.side-box--left,
+.side-box--center,
+.side-box--right {
+    background-color: var(--blanco);
+    color: var(--negro);
+    height: 700px;
+    border-radius: 10px;
+    transition: 0.5s ease-in-out;
+}
 
-/* Header perfil de perro */
+.side-box--left.dark-mode,
+.side-box--center.dark-mode,
+.side-box--right.dark-mode {
+    background-color: var(--gris);
+    color: var(--blanco);
+    transition: 0.5s ease-in-out;
+}
+
+
+/*-------- Propiedades de columnas laterales --------*/
+
+.side-box--center{
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.4);
+}
+
+.side-box--left{
+    box-shadow:  0 0 10px 2px rgba(251, 110, 110, 0.4);
+}
+
+.side-box--right{
+    box-shadow: 0 0 10px 2px rgba(75, 205, 145, 0.4);
+}
+
+/* Propiedad de cada item del listado */
+.list-item {
+    font-family: var(--fuente);
+}
+
+/* Propiedades de botones */
+.btn-change {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.btn-change.left,
+.btn-change.right {
+    background-color: rgb(253, 241, 225);
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    margin-left: 10px;
+    transition: 0.4s ease-in-out;
+}
+
+.btn-change.left {
+    background-image: url('./src/img/arrow-left.png');
+}
+
+.btn-change.left:hover {
+    background-color: var(--verde);
+}
+
+.btn-change.right {
+    background-image: url('./src/img/arrow-right.png');
+}
+
+.btn-change.right:hover {
+    background-color: var(--rojo);
+}
+
+/* Propiedad de scroll automatico */
+.side-box--left,
+.side-box--right {
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.side-box--left::-webkit-scrollbar,
+.side-box--right::-webkit-scrollbar {
+    width: 0.6em;
+    border-radius: 4px;
+}
+
+/* Propiedades pista de desplazamiento */
+.side-box--left::-webkit-scrollbar-track,
+.side-box--right::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+/* Propiedades indicador de posicion de la barra de desplazamiento */
+.side-box--left::-webkit-scrollbar-thumb,
+.side-box--right::-webkit-scrollbar-thumb {
+    background-color: rgb(187, 186, 186);
+    border-radius: 4px;
+}
+
+/* Color al pasar cursor en el indicador de posicion columna izquierda */
+.side-box--left::-webkit-scrollbar-thumb:hover {
+    background-color: var(--rojo);
+}
+
+/* Color al pasar cursor en el indicador de posicion columna derecha */
+.side-box--right::-webkit-scrollbar-thumb:hover {
+    background-color: var(--verde);
+}
+
+
+/*-------- Propiedades de Header, columna central --------*/
+/* Header de columna central*/
 .div-header {
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
+/* Iconos laterales de Header */
 .side-icon {
     width: 40px;
     height: 40px;
@@ -78,11 +164,16 @@ body.dark-mode {
     transition: 0.4s ease-in-out;
 }
 
+.side-icon.sun:hover{
+    transform: rotate(180deg);
+}
+
 .side-icon:hover {
     cursor: pointer;
     filter: invert(0.4)
 }
 
+/* Logo de Header */
 .logo {
     width: 40%;
     height: 40%;
@@ -96,7 +187,8 @@ body.dark-mode {
     transform: scale(1.1);
 }
 
-/* Contenido de perfil de perro */
+/*-------- Propiedades de Cuerpo, columna central --------*/
+/* Contenedor de imagen, informacion y botones */
 .container {
     display: flex;
     flex-direction: column;
@@ -105,6 +197,7 @@ body.dark-mode {
     padding: 20px;
 }
 
+/* Imagen de perro */
 .img-perro {
     display: flex;
     width: 100%;
@@ -117,61 +210,71 @@ body.dark-mode {
 
 }
 
-/* Detalles perfil */
-
+/* Propiedades en comun de informacion de perro. */
 .name-age,
 .ubication,
-.distance {
-    font-family: 'Milliard Book', sans-serif;
+.distance,
+.lorem {
+    font-family: var(--fuente);
     text-align: left;
 }
 
+/* Propiedad de informacion nombre y edad */
 .name-age {
     margin-top: 10px;
     font-size: 32px;
     font-weight: 800;
-    color: #000000;
+    color: var(--negro);
 }
 
 .name-age.dark-mode {
-    color: #fff;
+    color: var(--blanco);
 }
 
-.ubication, .distance {
+/* Propiedades en comun ubicacion y distancia */
+.ubication,
+.distance {
     display: flex;
-    align-items: center; /* alinea verticalmente */
+    align-items: center;
+    /* alinea verticalmente */
     font-size: 15px;
     font-weight: 600;
     color: #797979;
 }
 
-.ubication.dark-mode, .distance.dark-mode {
-    color: #b0aeae;
+.ubication.dark-mode,
+.distance.dark-mode {
+    color: #bfbdbd;
 }
 
-.icon-ubication, .icon-distance{
+
+/* Propiedad en comun de iconos de ubicacion y distancia */
+.icon-ubication,
+.icon-distance {
     display: flex;
     align-items: center;
 }
 
+.icon-ubication.dark-mode,
+.icon-distance.dark-mode{
+    filter: invert(1);
+}
+
+
+/* Propiedad en comun de imagen de iconos de ubicacion y distancia */
 .icon-ubication img,
-.icon-distance img{
+.icon-distance img {
     height: 15px;
     width: 15px;
     margin-right: 5px;
 }
 
-.icon-ubication.dark-mode img,
-.icon-distance.dark-mode img{
-    filter: invert(100%)
-}
-
+/* Propiedad de descripcion perfil (LoremIpsum) */
 .lorem {
-    font-family: 'Milliard Book', sans-serif;
     margin-top: 10px;
 }
 
-/* Botones de perfil */
+/* Propiedades de contenedor de botones */
 .btns {
     display: flex;
     justify-content: space-around;
@@ -179,6 +282,7 @@ body.dark-mode {
     margin-bottom: 20px;
 }
 
+/* Propiedad de cada boton */
 .btn {
     height: 8vh;
     width: 8vh;
@@ -187,21 +291,17 @@ body.dark-mode {
     transition: 0.4s ease-in-out;
 }
 
-.btn.dark-mode {
-    background-color: #000000;
-}
-
-
 .btn:hover {
     cursor: pointer;
     background-color: rgb(186, 184, 184);
 }
 
-.btn.disabled{
+.btn.disabled {
     opacity: 0.5;
-    cursor: not-allowed;
+    cursor: wait;
 }
 
+/* Propiedad de boton not-like */
 .not-like {
     background-image: url("../src/img/dont-like.png");
     background-size: 50%;
@@ -209,19 +309,10 @@ body.dark-mode {
     background-position: center;
 }
 
+/* Propiedad de boton like */
 .like {
     background-image: url("../src/img/like.png");
     background-size: 80%;
     background-repeat: no-repeat;
     background-position: center;
-}
-
-/* Lista de perros */
-.list-item {
-    border-radius: 5px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background-color: whitesmoke;
 }
