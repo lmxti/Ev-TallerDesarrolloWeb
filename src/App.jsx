@@ -11,12 +11,8 @@ import {
   ListItem,
   List,
   Container,
-  Button,
   Avatar,
   Divider,
-  Chip,
-  Stack,
-  IconButton,
 } from "@mui/material";
 
 // Librerias importadas
@@ -44,6 +40,8 @@ function App() {
   const [notLiked, setNotLiked] = useState([]);
   // Seteo de variables para no spam de botones
   const [buttonDeactivated, setButtonDeactivated] = useState(false);
+  // Loading
+  const [loading, setLoading] = useState(false);
 
   const ubicaciones = [
     "Concepción",
@@ -61,6 +59,7 @@ function App() {
 
   // Funcion para obtener perro y setear perro (Nombre y foto aleatoria)
   const getPerro = () => {
+    setLoading(true);
     axios.get("https://dog.ceo/api/breeds/image/random").then((response) => {
       setPerro({
         nombre: dogNames.allRandom(),
@@ -76,6 +75,7 @@ function App() {
           />
         ),
       });
+      setLoading(false);
     });
   };
 
@@ -89,8 +89,12 @@ function App() {
     // Comprobacion de spam de botones
     if (!buttonDeactivated) {
       setButtonDeactivated(true);
+      document.getElementById("loader").style.display = "block";
+      imgPerro.style.filter = "grayscale(100%)"
       setTimeout(() => {
         setButtonDeactivated(false);
+        document.getElementById("loader").style.display = "none";
+        imgPerro.style.filter = "grayscale(0%)"
       }, 1000);
     } else {
       return;
@@ -106,8 +110,12 @@ function App() {
     // Comprobacion de spam de botones
     if (!buttonDeactivated) {
       setButtonDeactivated(true);
+      document.getElementById("loader").style.display = "block";
+      imgPerro.style.filter = "grayscale(100%)"
       setTimeout(() => {
         setButtonDeactivated(false);
+        document.getElementById("loader").style.display = "none";
+        imgPerro.style.filter = "grayscale(0%)"
       }, 1000);
     } else {
       return;
@@ -140,6 +148,8 @@ function App() {
   const textDistance = document.querySelector(".distance");
   const iconUbication = document.querySelector(".icon-ubication");
   const iconDistance = document.querySelector(".icon-distance");
+
+  const imgPerro = document.querySelector(".img-perro");
 
   const setDarkMode = () => {
     body.classList.toggle("dark-mode");
@@ -178,9 +188,10 @@ function App() {
                 ))}
               </List>
           </Grid>
+          
 
           {/* Perfil de perro */}
-          <Grid xs={4} className="side-box--center">
+          <Grid xs={4} className="side-box--center" style={{ position: "relative" }}>
             <Box className="div-header">
               <img
                 className="side-icon sun"
@@ -192,6 +203,7 @@ function App() {
             </Box>
             <Divider />
             <Box className="container">
+            <div id="loader"></div>
               <img
                 className="img-perro"
                 src={perro.imagen}

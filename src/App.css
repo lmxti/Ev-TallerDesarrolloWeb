@@ -7,6 +7,7 @@
     --blanco: #fff;
     --negro: #000;
     --gris: #444654;
+    --naranjo: #f18526;
 }
 
 
@@ -59,15 +60,15 @@ body.dark-mode {
 
 /*-------- Propiedades de columnas laterales --------*/
 
-.side-box--center{
+.side-box--center {
     box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.4);
 }
 
-.side-box--left{
-    box-shadow:  0 0 10px 2px rgba(251, 110, 110, 0.4);
+.side-box--left {
+    box-shadow: 0 0 10px 2px rgba(251, 110, 110, 0.4);
 }
 
-.side-box--right{
+.side-box--right {
     box-shadow: 0 0 10px 2px rgba(75, 205, 145, 0.4);
 }
 
@@ -164,7 +165,7 @@ body.dark-mode {
     transition: 0.4s ease-in-out;
 }
 
-.side-icon.sun:hover{
+.side-icon.sun:hover {
     transform: rotate(180deg);
 }
 
@@ -207,7 +208,6 @@ body.dark-mode {
     border-radius: 10px;
     box-shadow: 4px 8px 1px 1px rgba(0, 0, 0, 0.264),
         7px 15px 2px 1px rgba(0, 0, 0, 0.264);
-
 }
 
 /* Propiedades en comun de informacion de perro. */
@@ -256,7 +256,7 @@ body.dark-mode {
 }
 
 .icon-ubication.dark-mode,
-.icon-distance.dark-mode{
+.icon-distance.dark-mode {
     filter: invert(1);
 }
 
@@ -315,4 +315,35 @@ body.dark-mode {
     background-size: 80%;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+#loader {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 35%;
+    left: 50%;
+    margin-top: -50px; /* la mitad de la altura del loader */
+    margin-left: -50px; /* la mitad de la anchura del loader */
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid var(--naranjo);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    box-shadow: 0 0 10px 5px #c6781a;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.side-box--center{
+    position: relative;
 }
