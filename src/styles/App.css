@@ -98,9 +98,15 @@ body.dark {
 .side-icon {
     height: 4rem;
     width: 4rem;
+    transition: 0.4s ease-in-out;
 }
+
+.side-icon:hover {
+    transform: rotate(180deg);
+}
+
 .side-icon.dark{
-    filter: invert(0.4);
+    filter: invert(1);
 }
 
 .center-icon {
@@ -157,6 +163,11 @@ body.dark {
     margin-right: 0.5rem;
     height: 3rem;
     width: 3rem;
+}
+
+.ubication.dark img,
+.distance.dark img{
+    filter: invert(1);
 }
 
 /*------------------------ Botones de perfil ------------------------ */

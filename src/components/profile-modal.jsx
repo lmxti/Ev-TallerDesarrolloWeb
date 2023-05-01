@@ -31,18 +31,18 @@ export default function profileModal({ datos }) {
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <img style={styleImg} src={imagen} alt="Imagen perro" />
-          <Box className='profile-info'>
+          <Box className='profile-info' sx={{color:"black"}}>
             {nombre}, {edad}
           </Box>
-          <Box className="ubication">
+          <Box className={"ubication"} sx={{color:"black",alignItems:"center", display:"flex"}}>
             <img src="../src/img/icon-ubication.png" alt="xd" />
             De {ubicacion}
           </Box>
-          <Box className="distance" >
+          <Box className={"distance"} sx={{color:"black",alignItems:"center", display:"flex"}} >
           <img src="../src/img/icon-gps.png" alt="xd" />
            A {distancia} de distancia
           </Box>
-          <Box>
+          <Box sx={{color:"black"}}>
             {descripcion}
           </Box>
         </Box>

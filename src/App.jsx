@@ -106,7 +106,7 @@ function App() {
               De {infoPerro?.ubicacion}
             </Box>
             <Box className="distance">
-              <img src={iconDistance} />A {infoPerro?.distancia} Km de distancia
+              <img src={iconDistance} />A {infoPerro?.distancia} de distancia
             </Box>
           </Box>
           <Divider />
@@ -138,6 +138,8 @@ function App() {
   const btnLike = document.querySelector(".like");
   const btnNoLike = document.querySelector(".noLike");
   const columnContent = document.querySelectorAll(".column-content");
+  const Ubication = document.querySelector(".ubication");
+  const Distance = document.querySelector(".distance");
 
   const toggleDarkMode = () => {
     document.body.classList.toggle("dark");
@@ -153,6 +155,8 @@ function App() {
       column.classList.toggle("dark");
     });
 
+    Ubication.classList.toggle("dark");
+    Distance.classList.toggle("dark");
 
     columnContent.forEach((column) => {
       column.classList.toggle("dark");

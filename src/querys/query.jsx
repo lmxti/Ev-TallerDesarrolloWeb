@@ -35,7 +35,7 @@ export const getDog = async () => {
     imagen: data.message,
     edad: Math.round(Math.random() * 4) + 1,
     ubicacion: ubicaciones[Math.floor(Math.random() * ubicaciones.length)],
-    distancia: Math.floor(Math.random() * 10) + 1,
+    distancia: distancias[Math.floor(Math.random() * distancias.length)],
     descripcion: (
       <LoremIpsum
         startWithLoremIpsum={false}
